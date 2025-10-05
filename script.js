@@ -59,54 +59,6 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// ===================================
-// Animação de Contadores nas Estatísticas
-// ===================================
-
-const statCards = document.querySelectorAll('.stat-card[data-animate="counter"]');
-let hasAnimated = false;
-
-const animateCounter = (element, target) => {
-    const duration = 2000; // 2 segundos
-    const increment = target / (duration / 16); // 60 FPS
-    let current = 0;
-    
-    const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-            element.textContent = Math.floor(current);
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target;
-        }
-    };
-    
-    updateCounter();
-};
-
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
-
-const observerCallback = (entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            statCards.forEach(card => {
-                const target = parseInt(card.getAttribute('data-target'));
-                const numberElement = card.querySelector('.stat-number');
-                animateCounter(numberElement, target);
-            });
-        }
-    });
-};
-
-const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-if (statCards.length > 0) {
-    observer.observe(document.querySelector('.estatisticas'));
-}
 
 // ===================================
 // Sistema de Tabs (Dicas de Segurança)
@@ -498,3 +450,4 @@ if (window.performance && window.performance.timing) {
         }, 0);
     });
 }
+
