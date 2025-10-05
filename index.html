@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site de conscientização sobre segurança no trânsito em Nova Friburgo, desenvolvido pela turma de Jogos Cooperativos do CEFET/RJ.">
+    <meta name="keywords" content="trânsito, segurança viária, Nova Friburgo, CEFET/RJ, conscientização">
+    <meta name="author" content="Turma de Jogos Cooperativos - CEFET/RJ Nova Friburgo">
+    <title>Conscientização no Trânsito - Nova Friburgo | CEFET/RJ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logosimplessemfundo.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <img class="logoimg" src="logocompleto.png" alt="logoprojeto">
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Início</a></li>
+                    <li><a href="#estatisticas" class="nav-link">Estatísticas</a></li>
+                    <li><a href="#dicas" class="nav-link">Dicas de Segurança</a></li>
+                    <li><a href="#sinalizacao" class="nav-link">Sinalização</a></li>
+                    <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-in">Trânsito Seguro Salva Vidas</h1>
+            <p class="hero-subtitle animate-fade-in-delay">Juntos por um trânsito mais consciente em Nova Friburgo</p>
+            <a href="#estatisticas" class="btn btn-primary animate-fade-in-delay-2">Conheça os Dados</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Estatísticas Section -->
+    <section id="estatisticas" class="section estatisticas">
+        <div class="container">
+            <h2 class="section-title">Estatísticas de Nova Friburgo</h2>
+            <p class="section-intro">Os números revelam a urgência de uma mudança de comportamento no trânsito da nossa cidade. Em 2025, Nova Friburgo já registrou um número alarmante de acidentes, evidenciando a necessidade de maior conscientização e responsabilidade de todos os usuários das vias.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card" data-animate="counter" data-target="643">
+                    <div class="stat-icon">🚗</div>
+                    <h3 class="stat-number">0</h3>
+                    <p class="stat-label">Acidentes em 2025</p>
+                    <p class="stat-description">Número próximo ao total de 2024 inteiro</p>
+                </div>
+                <div class="stat-card" data-animate="counter" data-target="200">
+                    <div class="stat-icon">⚠️</div>
+                    <h3 class="stat-number">0</h3>
+                    <p class="stat-label">Acidentes em 3 meses</p>
+                    <p class="stat-description">Quase 200 ocorrências registradas</p>
+                </div>
+                <div class="stat-card" data-animate="counter" data-target="2">
+                    <div class="stat-icon">📊</div>
+                    <h3 class="stat-number">0</h3>
+                    <p class="stat-label">Acidentes por dia</p>
+                    <p class="stat-description">Média diária em períodos críticos</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚦</div>
+                    <h3 class="stat-label">Principal Causa</h3>
+                    <p class="stat-label2">Imprudência</p>
+                    <p class="stat-description">Atribuída pela prefeitura como causa principal</p>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-content">
+                    <h4>Tipos de Acidentes Mais Comuns</h4>
+                    <p>Colisões e atropelamentos lideram os casos registrados em Nova Friburgo. A atenção e o respeito às normas de trânsito são fundamentais para reverter esse cenário.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dicas de Segurança Section -->
+    <section id="dicas" class="section dicas">
+        <div class="container">
+            <h2 class="section-title">Dicas de Segurança no Trânsito</h2>
+            <p class="section-intro">A segurança no trânsito é responsabilidade de todos. Motoristas, motociclistas, pedestres e ciclistas devem seguir as normas e adotar comportamentos seguros para proteger suas vidas e a dos demais usuários das vias.</p>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-button active" data-tab="motoristas">🚗 Motoristas</button>
+                <button class="tab-button" data-tab="motociclistas">🏍️ Motociclistas</button>
+                <button class="tab-button" data-tab="pedestres">🚶 Pedestres</button>
+                <button class="tab-button" data-tab="ciclistas">🚴 Ciclistas</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content active" id="motoristas">
+                <div class="dicas-grid">
+                    <div class="dica-card">
+                        <div class="dica-icon">🛡️</div>
+                        <h3>Direção Defensiva</h3>
+                        <p>Pratique a direção defensiva, antecipando situações de risco e agindo preventivamente para evitá-las. Mantenha-se sempre alerta ao seu redor.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">📵</div>
+                        <h3>Não Use o Celular</h3>
+                        <p>Evite o uso de celular ao dirigir. A distração causada pelo aparelho aumenta drasticamente o risco de acidentes graves.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">↔️</div>
+                        <h3>Mantenha Distância Segura</h3>
+                        <p>Mantenha uma distância segura do veículo da frente para ter tempo e espaço suficientes para reagir a imprevistos.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">➡️</div>
+                        <h3>Use a Seta</h3>
+                        <p>Sinalize suas intenções com antecedência usando a seta. A sinalização não é opcional, é obrigatória e salva vidas.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🔧</div>
+                        <h3>Manutenção Preventiva</h3>
+                        <p>Realize a manutenção preventiva do veículo regularmente para garantir seu bom funcionamento e a segurança de todos.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">😴</div>
+                        <h3>Evite Dirigir com Sono</h3>
+                        <p>Faça pausas regulares em viagens longas e evite dirigir cansado ou com sono. O cansaço compromete seus reflexos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="motociclistas">
+                <div class="dicas-grid">
+                    <div class="dica-card">
+                        <div class="dica-icon">🚫</div>
+                        <h3>Evite Corredores</h3>
+                        <p>Evite utilizar corredores entre os veículos, pois essa prática aumenta significativamente o risco de colisões.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🪖</div>
+                        <h3>Equipamentos de Segurança</h3>
+                        <p>Use sempre capacete certificado e outros equipamentos de proteção como jaqueta, luvas e botas adequadas.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">👀</div>
+                        <h3>Seja Visível</h3>
+                        <p>Use roupas claras ou refletivas e mantenha os faróis sempre acesos para aumentar sua visibilidade no trânsito.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🛣️</div>
+                        <h3>Respeite as Faixas</h3>
+                        <p>Trafegue sempre nas faixas adequadas e respeite os limites de velocidade estabelecidos para cada via.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="pedestres">
+                <div class="dicas-grid">
+                    <div class="dica-card">
+                        <div class="dica-icon">🛑</div>
+                        <h3>Pare, Olhe e Escute</h3>
+                        <p>Antes de atravessar a rua, pare, olhe para os dois lados e escute. Sua atenção pode salvar sua vida.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🚸</div>
+                        <h3>Use a Faixa de Pedestres</h3>
+                        <p>Atravesse sempre na faixa de pedestres. É o local mais seguro e onde os motoristas esperam encontrar pedestres.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">👁️</div>
+                        <h3>Atenção Redobrada</h3>
+                        <p>Esteja atento ao seu redor e evite distrações como o uso de celular ao caminhar pelas ruas.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🌙</div>
+                        <h3>Visibilidade à Noite</h3>
+                        <p>À noite, use roupas claras ou refletivas para ser mais facilmente visto pelos motoristas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="ciclistas">
+                <div class="dicas-grid">
+                    <div class="dica-card">
+                        <div class="dica-icon">🪖</div>
+                        <h3>Use Capacete</h3>
+                        <p>O capacete é essencial para proteger sua cabeça em caso de quedas ou colisões. Use sempre.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">💡</div>
+                        <h3>Iluminação e Sinalização</h3>
+                        <p>Use luzes dianteiras e traseiras, além de refletores, especialmente à noite ou em condições de baixa visibilidade.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">🚦</div>
+                        <h3>Respeite as Leis</h3>
+                        <p>Siga as regras de trânsito como qualquer outro veículo. Respeite semáforos, placas e sinalizações.</p>
+                    </div>
+                    <div class="dica-card">
+                        <div class="dica-icon">✋</div>
+                        <h3>Sinalize suas Intenções</h3>
+                        <p>Use gestos com as mãos para indicar suas intenções de virar ou parar, facilitando a comunicação com outros usuários.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sinalização Section -->
+    <section id="sinalizacao" class="section sinalizacao">
+        <div class="container">
+            <h2 class="section-title">Sinalização de Trânsito</h2>
+            <p class="section-intro">Conhecer e respeitar a sinalização de trânsito é fundamental para a segurança de todos. As placas, semáforos e marcações viárias orientam o comportamento dos usuários e ajudam a prevenir acidentes.</p>
+
+            <div class="sinalizacao-content">
+                <div class="sinalizacao-image">
+                    <img src="placas.jpg" alt="Sinais de trânsito - Placas de regulamentação, advertência e indicação">
+                    <p class="image-caption">Principais sinais de trânsito: placas de regulamentação, advertência e indicação</p>
+                </div>
+
+                <div class="sinalizacao-info">
+                    <div class="info-card">
+                        <h3>🔴 Placas de Regulamentação</h3>
+                        <p>As placas de regulamentação têm formato circular e indicam obrigações, restrições e proibições. Exemplos: pare, proibido estacionar, velocidade máxima permitida. O desrespeito a essas placas pode resultar em multas e pontos na carteira.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>⚠️ Placas de Advertência</h3>
+                        <p>As placas de advertência têm formato quadrado na diagonal (losango) e alertam sobre condições potencialmente perigosas na via. Exemplos: curva acentuada, pista escorregadia, animais na pista. Fique atento a essas sinalizações.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>ℹ️ Placas de Indicação</h3>
+                        <p>As placas de indicação têm formato retangular e fornecem informações úteis aos usuários das vias. Exemplos: direção de cidades, serviços auxiliares, pontos turísticos. Facilitam a orientação e o planejamento da rota.</p>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Maio Amarelo Section -->
+    <section class="section maio-amarelo">
+        <div class="container">
+            <div class="maio-content">
+                <div class="maio-image">
+                    <img src="maioamarelolaco.png" alt="Maio Amarelo - Campanha de conscientização no trânsito">
+                </div>
+                <div class="maio-text">
+                    <h2>Maio Amarelo</h2>
+                    <p>O <strong>Maio Amarelo</strong> é um movimento internacional de conscientização para a redução de acidentes de trânsito. Durante todo o mês de maio, diversas ações são realizadas em Nova Friburgo e em todo o Brasil com o objetivo de estimular a reflexão coletiva e promover mudanças de comportamento que possam reduzir acidentes e salvar vidas.</p>
+                    <p>A campanha reforça a importância da responsabilidade compartilhada entre poder público, sociedade civil e cada cidadão para construir um trânsito mais seguro e humano.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="section quiz">
+        <div class="container">
+            <h2 class="section-title">Quiz: Teste Seus Conhecimentos</h2>
+            <p class="section-intro">Responda às perguntas abaixo e descubra o quanto você sabe sobre segurança no trânsito!</p>
+
+            <div class="quiz-container">
+                <div class="quiz-question active" data-question="1">
+                    <h3>Questão 1: Qual é a principal causa de acidentes em Nova Friburgo?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Má conservação das vias</button>
+                        <button class="quiz-option" data-correct="true">Imprudência dos motoristas</button>
+                        <button class="quiz-option" data-correct="false">Falta de sinalização</button>
+                        <button class="quiz-option" data-correct="false">Condições climáticas</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <h3>Questão 2: O que você deve fazer antes de atravessar a rua como pedestre?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Atravessar rapidamente</button>
+                        <button class="quiz-option" data-correct="false">Olhar apenas para um lado</button>
+                        <button class="quiz-option" data-correct="true">Parar, olhar para os dois lados e escutar</button>
+                        <button class="quiz-option" data-correct="false">Atravessar sem olhar se estiver na faixa</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="3">
+                    <h3>Questão 3: Qual é o formato das placas de advertência?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Circular</button>
+                        <button class="quiz-option" data-correct="true">Quadrado na diagonal (losango)</button>
+                        <button class="quiz-option" data-correct="false">Retangular</button>
+                        <button class="quiz-option" data-correct="false">Triangular</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="4">
+                    <h3>Questão 4: Motociclistas devem evitar:</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Usar capacete</button>
+                        <button class="quiz-option" data-correct="true">Utilizar corredores entre veículos</button>
+                        <button class="quiz-option" data-correct="false">Manter os faróis acesos</button>
+                        <button class="quiz-option" data-correct="false">Respeitar os limites de velocidade</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="5">
+                    <h3>Questão 5: Quantos acidentes Nova Friburgo registrou em 2025?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Aproximadamente 200</button>
+                        <button class="quiz-option" data-correct="false">Aproximadamente 400</button>
+                        <button class="quiz-option" data-correct="true">Aproximadamente 643</button>
+                        <button class="quiz-option" data-correct="false">Aproximadamente 800</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-result">
+                    <h3>Resultado</h3>
+                    <p class="result-score">Você acertou <span id="score">0</span> de 5 questões!</p>
+                    <p class="result-message" id="resultMessage"></p>
+                    <button class="btn btn-primary" id="restartQuiz">Refazer Quiz</button>
+                </div>
+
+                <div class="quiz-navigation">
+                    <button class="btn btn-secondary" id="prevQuestion" disabled>Anterior</button>
+                    <button class="btn btn-primary" id="nextQuestion" disabled>Próxima</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="section sobre">
+        <div class="container">
+            <h2 class="section-title">Sobre o Projeto</h2>
+            
+            <div class="sobre-content">
+                <div class="sobre-text">
+                    <p>Este site foi desenvolvido pela <strong>Turma de Jogos Cooperativos</strong> do <strong>CEFET/RJ - Campus Nova Friburgo</strong> como parte de uma iniciativa educacional voltada para a conscientização sobre segurança no trânsito em nossa cidade.</p>
+                    
+                    <p>O projeto tem como objetivo principal informar e sensibilizar a população de Nova Friburgo sobre a importância de adotar comportamentos seguros no trânsito, contribuindo para a redução dos alarmantes índices de acidentes que afetam nossa comunidade.</p>
+                    
+                    <p>Através da apresentação de dados estatísticos, dicas práticas de segurança, informações sobre sinalização e atividades interativas, buscamos promover uma reflexão coletiva e estimular mudanças de atitude que possam salvar vidas.</p>
+                </div>
+
+                <div class="sobre-image">
+                    <img src="logosimples.png" alt="Trânsito Seguro - É assim que se faz">
+                </div>
+            </div>
+
+            <div class="cefet-info">
+                <h3>CEFET/RJ - Centro Federal de Educação Tecnológica Celso Suckow da Fonseca</h3>
+                <p>O CEFET/RJ é uma instituição federal de ensino que oferece educação tecnológica de excelência, formando profissionais qualificados e cidadãos conscientes de seu papel na sociedade. O campus de Nova Friburgo desenvolve diversos projetos de extensão e responsabilidade social, contribuindo para o desenvolvimento sustentável da região.</p>
+            </div>
+
+            <div class="educacao-transito">
+                <h3>Educação no Trânsito</h3>
+                <div class="educacao-content">
+                    <div class="educacao-text">
+                        <p>Nova Friburgo conta com iniciativas importantes de educação no trânsito, incluindo um espaço dedicado dentro das dependências do 11º BPM voltado para atividades educativas direcionadas a crianças. Essas ações são fundamentais para formar uma nova geração de cidadãos mais conscientes e responsáveis no trânsito.</p>
+                    </div>
+                    <div class="educacao-image">
+                        <img src="guardafriburgo.jpeg" alt="Agente de trânsito em Nova Friburgo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Trânsito Seguro NF</h4>
+                    <p>Projeto desenvolvido pela Turma de Jogos Cooperativos do CEFET/RJ - Campus Nova Friburgo</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="https://www.gov.br/infraestrutura/pt-br/assuntos/transito" target="_blank">Portal do Trânsito</a></li>
+                        <li><a href="https://www.denatran.gov.br/" target="_blank">DENATRAN</a></li>
+                        <li><a href="http://www.cefet-rj.br/" target="_blank">CEFET/RJ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>CEFET/RJ - Campus Nova Friburgo</p>
+                    <p>Nova Friburgo, Rio de Janeiro</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Trânsito Seguro Nova Friburgo.</p>
+                <p>Desenvolvido pela Turma de Jogos Cooperativos</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
