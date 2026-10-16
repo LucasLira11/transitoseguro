@@ -2,127 +2,104 @@
 
 Site de conscientização sobre segurança no trânsito em Nova Friburgo, desenvolvido pela **Turma de Jogos Cooperativos** do **CEFET/RJ - Campus Nova Friburgo**.
 
-## 📋 Sobre o Projeto
+O site reúne dados reais da cidade, dicas para cada tipo de usuário da via, placas de trânsito interativas, as principais regras e multas do Código de Trânsito Brasileiro (CTB), o que fazer em caso de sinistro, a campanha Maio Amarelo, os nossos jogos e um quiz.
 
-Este site foi criado com o objetivo de informar e sensibilizar a população de Nova Friburgo sobre a importância de adotar comportamentos seguros no trânsito. O projeto apresenta dados estatísticos reais, dicas práticas de segurança, informações sobre sinalização viária e atividades interativas.
+## ✨ O que tem no site
 
-## 🎯 Funcionalidades
+| Seção | Conteúdo |
+|---|---|
+| **Números** | Ocorrências de trânsito em Friburgo (2023–2025), dados mais recentes sobre motos, com fontes |
+| **Dicas** | Abas para motoristas, motociclistas, pedestres e ciclistas |
+| **Placas** | Os três tipos de placa e uma galeria de 15 placas em SVG que viram ao toque |
+| **Leis e multas** | Natureza das infrações, pontos, suspensão da CNH e as infrações mais perigosas (CTB) |
+| **Emergência** | Telefones (192, 193, 190, 191, 199) com ligação direta e o passo a passo em caso de sinistro |
+| **Maio Amarelo** | A campanha e o tema de 2026 |
+| **Jogos** | Acesso aos jogos em [jogos-cooperativos.vercel.app](https://jogos-cooperativos.vercel.app/) e citações sobre educação no trânsito |
+| **Quiz** | 10 perguntas sorteadas de um banco de 22, com explicação a cada resposta |
 
-- **Hero Section Animado**: Seção inicial impactante com animações modernas
-- **Estatísticas em Tempo Real**: Contadores animados com dados de acidentes em Nova Friburgo
-- **Dicas de Segurança por Categoria**: Sistema de tabs para motoristas, motociclistas, pedestres e ciclistas
-- **Galeria de Sinalização**: Informações completas sobre placas de trânsito
-- **Quiz Interativo**: Teste seus conhecimentos sobre segurança viária
-- **Design Responsivo**: Totalmente adaptável para dispositivos móveis
-- **Animações Suaves**: Efeitos de scroll, parallax e transições modernas
+## 🛠️ Tecnologias
 
-## 🛠️ Tecnologias Utilizadas
+- **[Astro 7](https://astro.build/)**: gera um site 100% estático e só envia JavaScript onde há interação
+- **[Tailwind CSS 4](https://tailwindcss.com/)**: estilos com os tokens de cor e fonte do projeto
+- **TypeScript** em modo estrito
+- **[Lucide](https://lucide.dev/)**: ícones em SVG
+- **Fontsource**: fontes Barlow Condensed e Inter servidas pelo próprio site, sem chamadas externas
+- **[Vitest](https://vitest.dev/)**: testes da lógica do quiz e da integridade dos dados
 
-- **HTML5**: Estrutura semântica e acessível
-- **CSS3**: Estilos modernos com variáveis CSS, Grid, Flexbox e animações
-- **JavaScript (Vanilla)**: Interatividade sem dependências externas
-- **Design Responsivo**: Mobile-first approach
+Também tem animações com CSS *scroll-driven* (com alternativa para navegadores sem suporte), respeito a `prefers-reduced-motion`, abas e menu acessíveis por teclado, imagens otimizadas em AVIF/WebP, sitemap e Open Graph.
 
+## 🚀 Rodando localmente
+
+Requer **Node.js 22.22** ou superior.
+
+```bash
+npm install
+npm run dev
 ```
 
-## 📊 Dados Estatísticos
+O site abre em `http://localhost:4321`.
 
-Os dados apresentados no site são baseados em fontes confiáveis:
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Gera o site estático em `dist/` |
+| `npm run preview` | Serve o build localmente |
+| `npm test` | Roda os testes (Vitest) |
+| `npm run check` | Checagem de tipos do Astro/TypeScript |
 
-- **643 acidentes em 2025**: Número próximo ao total de 2024 inteiro
-- **Quase 200 acidentes em 3 meses**: Demonstra a gravidade da situação
-- **Média de 2 acidentes por dia**: Em períodos críticos
-- **Principal causa**: Imprudência dos motoristas (segundo a prefeitura)
-- **Tipos mais comuns**: Colisões e atropelamentos
+## ✏️ Como atualizar o conteúdo
 
-## 🎨 Personalização
+Todo o conteúdo fica em `src/data/`, separado do layout. Para mudar um número ou um texto, edite só esses arquivos:
 
-### Cores
+| Arquivo | Conteúdo |
+|---|---|
+| `site.ts` | Nome, descrição, menu, links dos jogos e autores |
+| `stats.ts` | Estatísticas de Nova Friburgo e fontes |
+| `tips.ts` | Dicas por perfil |
+| `signs.ts` | Tipos de placa e a galeria |
+| `laws.ts` | Multas, pontos e infrações do CTB |
+| `emergency.ts` | Telefones e passo a passo |
+| `quiz.ts` | Banco de perguntas (cada uma com explicação) |
+| `quotes.ts` | Citações |
+| `references.ts` | Links úteis e referências do rodapé |
 
-As cores podem ser facilmente alteradas no arquivo `styles.css`, na seção de variáveis CSS:
+Exemplo, para atualizar o total de ocorrências de 2025 em `src/data/stats.ts`:
 
-```css
-:root {
-    --primary-color: #FFC107;      /* Amarelo principal */
-    --primary-dark: #FFA000;       /* Amarelo escuro */
-    --secondary-color: #212121;    /* Preto/cinza escuro */
-    --accent-color: #FF5722;       /* Laranja de destaque */
-}
+```ts
+{ year: '2025', value: 643, note: 'jan–set' },
 ```
 
-### Conteúdo
+Depois de editar, rode `npm test` para garantir que o banco do quiz continua válido.
 
-Todo o conteúdo textual está no arquivo `index.html` e pode ser editado diretamente. As seções estão claramente identificadas com comentários HTML.
+## 📁 Estrutura
 
-### Imagens
-
-Para adicionar ou substituir imagens:
-
-1. Coloque a nova imagem na pasta `images/`
-2. Atualize o caminho no arquivo `index.html`
-3. Adicione um texto alternativo descritivo (atributo `alt`)
-
-## ✨ Recursos Interativos
-
-### Quiz de Conhecimentos
-
-O quiz possui 5 questões sobre segurança no trânsito com:
-- Feedback imediato para cada resposta
-- Pontuação final com mensagem personalizada
-- Opção de refazer o quiz
-
-### Sistema de Tabs
-
-As dicas de segurança são organizadas por categorias:
-- 🚗 Motoristas
-- 🏍️ Motociclistas
-- 🚶 Pedestres
-- 🚴 Ciclistas
-
-### Animações
-
-- **Contadores animados**: Números das estatísticas sobem gradualmente
-- **Scroll reveal**: Elementos aparecem suavemente ao rolar a página
-- **Parallax**: Efeito de profundidade no hero section
-- **Hover effects**: Cards e botões respondem ao passar do mouse
-- **Smooth scroll**: Navegação suave entre seções
-
-## 📱 Responsividade
-
-O site é totalmente responsivo e se adapta a:
-
-- **Desktop**: Layout completo com todas as funcionalidades
-- **Tablet**: Layout ajustado com grids adaptáveis
-- **Mobile**: Menu hambúrguer e layout em coluna única
-
-## ♿ Acessibilidade
-
-- Textos alternativos em todas as imagens
-- Contraste adequado entre texto e fundo
-- Navegação por teclado
-- Estrutura semântica HTML5
-- Tamanhos de fonte legíveis
-
-## 🔧 Manutenção
-
-### Atualizando Estatísticas
-
-Para atualizar os números de acidentes, edite o arquivo `index.html` e altere os valores em `data-target`:
-
-```html
-<div class="stat-card" data-animate="counter" data-target="643">
+```
+src/
+├── assets/        imagens (otimizadas no build)
+├── components/    uma seção por arquivo + ui/ (Logo, Sign, Counter, SectionHeading)
+├── data/          todo o conteúdo do site
+├── layouts/       Base.astro (head, SEO, fontes)
+├── lib/quiz.ts    lógica do quiz, sem DOM
+├── pages/         index.astro e 404.astro
+└── styles/        global.css (tokens do tema "asfalto noturno")
+public/            favicon, imagem de compartilhamento, robots.txt
+tests/             testes Vitest
 ```
 
-### Adicionando Novas Dicas
+## ☁️ Deploy na Vercel
 
-Para adicionar uma nova dica, copie a estrutura de um `.dica-card` existente e modifique o conteúdo:
+1. Importe o repositório em [vercel.com/new](https://vercel.com/new). A Vercel detecta o Astro sozinha.
+2. Mantenha o comando de build `npm run build` e a pasta de saída `dist`.
+3. Se o domínio final não for `transitoseguro.vercel.app`, atualize `site` em `astro.config.mjs` e a linha `Sitemap` em `public/robots.txt`.
 
-```html
-<div class="dica-card">
-    <div class="dica-icon">🔧</div>
-    <h3>Título da Dica</h3>
-    <p>Descrição da dica aqui.</p>
-</div>
-```
+## 📊 Fontes dos dados
 
-DESENVOLVIDO POR: LUCAS LIRA
+- Corpo de Bombeiros (6º GBM), via [TV Zoom](https://tvzoom.com.br/dia-nacional-do-transito-friburgo-em-alerta-acidentes-de-2025-ja-chegam-perto-do-total-de-todo-2024/), [Portal Multiplix](https://www.portalmultiplix.com/noticias/cotidiano/nova-friburgo-ja-registra-30-acidentes-de-transito-em-marco-e-quase-200-em-menos-de-tres-meses) e [A Voz da Serra](https://avozdaserra.com.br/noticias/friburgo-registra-quase-600-acidentes-com-motocicletas-em-um-ano)
+- [Código de Trânsito Brasileiro — texto compilado (Planalto)](https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm), conferido em outubro de 2026
+- [Maio Amarelo 2026 — Portal do Trânsito](https://www.portaldotransito.com.br/noticias/conscientizacao/maio-amarelo/maio-amarelo-2026-ja-tem-tema-definido-no-transito-enxergar-o-outro-e-salvar-vidas/)
+
+O conteúdo sobre leis é educativo. Para casos concretos, consulte o texto oficial do CTB.
+
+---
+
+Desenvolvido pela Turma de Jogos Cooperativos do CEFET/RJ: **[Lucas Lira](https://lucaslira11.github.io/)** e **[Gregory Queiroz](https://github.com/GregoryCardoso)**.

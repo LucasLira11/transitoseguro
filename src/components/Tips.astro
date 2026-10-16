@@ -1,0 +1,100 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { tipGroups, tipsIntro } from '@/data/tips';
+---
+
+<section id="dicas" class="section-pad relative border-t border-asphalt-800 bg-asphalt-900/40" aria-labelledby="dicas-title">
+  <div class="container-site">
+    <SectionHeading id="dicas-title" eyebrow="Cada um faz a sua parte" title="Dicas de Segurança no Trânsito" intro={tipsIntro} />
+
+    <div data-tabs class="reveal">
+      <div role="tablist" aria-label="Escolha seu perfil no trânsito" class="tablist mb-8 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+        {
+          tipGroups.map((group, i) => {
+            const Icon = group.icon;
+            return (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${group.id}`}
+                aria-controls={`painel-${group.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+                class="flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-asphalt-600 px-5 py-2.5 font-display text-lg font-bold uppercase tracking-wide text-ink-muted transition-colors hover:border-signal hover:text-ink aria-selected:border-signal aria-selected:bg-signal aria-selected:text-asphalt-950"
+              >
+                <Icon size={22} aria-hidden="true" />
+                {group.label}
+              </button>
+            );
+          })
+        }
+      </div>
+
+      {
+        tipGroups.map((group, i) => (
+          <div
+            role="tabpanel"
+            id={`painel-${group.id}`}
+            aria-labelledby={`tab-${group.id}`}
+            tabindex="0"
+            class="tab-panel"
+            data-active={i === 0 ? '' : undefined}
+          >
+            <h3 class="panel-title mb-4 mt-10 font-display text-3xl font-bold uppercase text-signal">{group.label}</h3>
+            <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {group.items.map((tip) => {
+                const Icon = tip.icon;
+                return (
+                  <li class="card group relative overflow-hidden p-6 transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-signal/50">
+                    <span class="grid size-12 place-items-center rounded-xl bg-signal/10 text-signal transition-colors group-hover:bg-signal group-hover:text-asphalt-950">
+                      <Icon size={24} aria-hidden="true" />
+                    </span>
+                    <h4 class="mt-5 font-display text-2xl font-bold uppercase text-ink">{tip.title}</h4>
+                    <p class="mt-2 text-ink-muted">{tip.text}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Sem JS: todas as listas aparecem, com título; as abas somem. */
+  :global(html:not(.js)) .tablist { display: none; }
+  :global(html.js) .panel-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  :global(html.js) .tab-panel:not([data-active]) { display: none; }
+  .tab-panel:focus-visible { outline-offset: 8px; }
+</style>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-tabs]')) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+
+    const select = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        if (active) panels[i].setAttribute('data-active', '');
+        else panels[i].removeAttribute('data-active');
+      });
+      if (focus) tabs[index].focus();
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+      tab.addEventListener('keydown', (event) => {
+        const last = tabs.length - 1;
+        const next = { ArrowRight: i === last ? 0 : i + 1, ArrowLeft: i === 0 ? last : i - 1, Home: 0, End: last }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        select(next, true);
+      });
+    });
+  }
+</script>

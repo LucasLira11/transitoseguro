@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* ===================================
+   Tokens — "asfalto noturno"
+   =================================== */
+@theme {
+  --color-asphalt-950: #0a0c0f;
+  --color-asphalt-900: #111419;
+  --color-asphalt-800: #191d24;
+  --color-asphalt-700: #262b34;
+  --color-asphalt-600: #353b46;
+
+  --color-signal: #ffc72c;
+  --color-signal-deep: #e0a800;
+  --color-route: #2f6fd6;
+  --color-route-light: #7aaaf7;
+  --color-route-deep: #1b4a9c;
+  --color-stop: #e5322d;
+  --color-stop-light: #ff6b66;
+  --color-caution: #ff8a3d;
+  --color-go: #2fbf71;
+
+  --color-ink: #f2f2ef;
+  --color-ink-muted: #a3abb6;
+
+  --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-dash: dash 0.9s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -80; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(255 199 44 / 0.55); }
+  70% { box-shadow: 0 0 0 18px rgb(255 199 44 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(255 199 44 / 0); }
+}
+
+/* ===================================
+   Base
+   =================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-asphalt-950);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    /* grão de asfalto */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-asphalt-950);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+}
+
+/* ===================================
+   Utilitários do sistema
+   =================================== */
+@utility container-site {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) { padding-inline: 1.5rem; }
+  @media (width >= 64rem) { padding-inline: 2rem; }
+}
+
+@utility section-pad {
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* Faixa tracejada amarela (linha de pista) */
+@utility lane {
+  height: 4px;
+  background-image: repeating-linear-gradient(90deg, var(--color-signal) 0 28px, transparent 28px 44px);
+}
+
+/* Listras de advertência */
+@utility hazard {
+  background-image: repeating-linear-gradient(-45deg, var(--color-signal) 0 14px, var(--color-asphalt-950) 14px 28px);
+}
+
+/* Cartão padrão */
+@utility card {
+  background-color: color-mix(in oklab, var(--color-asphalt-900) 88%, transparent);
+  border: 1px solid var(--color-asphalt-700);
+  border-radius: 1.25rem;
+}
+
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-signal);
+}
+
+/* Botões */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  &:hover { transform: translateY(-2px); }
+  &:active { transform: translateY(0); }
+}
+
+@utility btn-primary {
+  background-color: var(--color-signal);
+  color: var(--color-asphalt-950);
+  &:hover { background-color: #ffd65c; }
+}
+
+@utility btn-ghost {
+  border: 1.5px solid var(--color-asphalt-600);
+  color: var(--color-ink);
+  &:hover { border-color: var(--color-signal); color: var(--color-signal); }
+}
+
+/* ===================================
+   Revelação ao rolar (CSS scroll-driven, progressivo)
+   =================================== */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(2.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* ===================================
+   Movimento reduzido
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
