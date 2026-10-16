@@ -1,0 +1,89 @@
+---
+import Phone from '@lucide/astro/icons/phone';
+import ShieldAlert from '@lucide/astro/icons/shield-alert';
+import HeartHandshake from '@lucide/astro/icons/heart-handshake';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { contacts, emergencyIntro, legalNotes, steps } from '@/data/emergency';
+
+const noteIcons = [ShieldAlert, HeartHandshake];
+---
+
+<section id="emergencia" class="section-pad relative overflow-hidden" aria-labelledby="emergencia-title">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_15%_0%,rgb(229_50_45/0.16),transparent_70%)]"></div>
+
+  <div class="container-site">
+    <SectionHeading id="emergencia-title" eyebrow="Primeiros minutos" title="Em caso de sinistro" intro={emergencyIntro} />
+
+    <!-- Telefones -->
+    <ul class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5" aria-label="Telefones de emergência">
+      {
+        contacts.map((c) => {
+          const Icon = c.icon;
+          return (
+            <li class="reveal last:col-span-2 lg:last:col-span-1">
+              <a
+                href={`tel:${c.number}`}
+                class:list={[
+                  'group flex h-full flex-col rounded-[1.25rem] border p-5 transition-transform hover:-translate-y-1',
+                  c.primary ? 'border-stop bg-stop text-white' : 'border-asphalt-700 bg-asphalt-900 text-ink hover:border-stop',
+                ]}
+              >
+                <span class="flex items-center justify-between">
+                  <Icon size={26} aria-hidden="true" />
+                  <span
+                    class:list={[
+                      'flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold',
+                      c.primary ? 'bg-white/20' : 'bg-asphalt-800 text-ink-muted group-hover:text-ink',
+                    ]}
+                  >
+                    <Phone size={13} aria-hidden="true" />
+                    Ligar
+                  </span>
+                </span>
+                <span class="mt-4 font-display text-6xl font-extrabold leading-none tracking-tight">{c.number}</span>
+                <span class="mt-2 font-display text-xl font-bold uppercase">{c.name}</span>
+                <span class:list={['mt-1 text-sm', c.primary ? 'text-white/85' : 'text-ink-muted']}>{c.when}</span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <!-- Passo a passo -->
+    <h3 class="reveal mt-20 font-display text-4xl font-extrabold uppercase text-ink">O que fazer, passo a passo</h3>
+    <ol class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        steps.map((step, i) => (
+          <li class="card reveal relative overflow-hidden p-6">
+            <span aria-hidden="true" class="absolute -right-2 -top-6 font-display text-[7.5rem] font-extrabold leading-none text-asphalt-800">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span class="relative">
+              <span class="eyebrow">Passo {i + 1}</span>
+              <h4 class="mt-2 font-display text-2xl font-bold uppercase text-ink">{step.title}</h4>
+              <p class="mt-2 text-ink-muted">{step.text}</p>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {
+        legalNotes.map((note, i) => {
+          const Icon = noteIcons[i];
+          return (
+            <div class:list={['reveal flex gap-4 rounded-[1.25rem] border p-6', i === 0 ? 'border-stop/40 bg-stop/[0.08]' : 'border-route/40 bg-route/[0.08]']}>
+              <Icon size={28} class:list={['mt-0.5 shrink-0', i === 0 ? 'text-stop-light' : 'text-route-light']} aria-hidden="true" />
+              <div>
+                <h4 class="font-display text-xl font-bold uppercase text-ink">{note.title}</h4>
+                <p class="mt-1.5 text-sm text-ink-muted">{note.text}</p>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

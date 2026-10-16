@@ -1,0 +1,53 @@
+---
+import ArrowUp from '@lucide/astro/icons/arrow-up';
+import Logo from '@/components/ui/Logo.astro';
+import { references, usefulLinks } from '@/data/references';
+import { site } from '@/data/site';
+
+const linkClass = 'text-ink-muted underline-offset-4 transition-colors hover:text-signal hover:underline';
+---
+
+<footer class="relative border-t border-asphalt-800 bg-asphalt-950 pt-16">
+  <div aria-hidden="true" class="lane absolute inset-x-0 top-0 opacity-70"></div>
+  <div class="container-site">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.4fr]">
+      <div>
+        <Logo />
+        <p class="mt-5 max-w-xs text-sm text-ink-muted">
+          Projeto desenvolvido pela Turma de Jogos Cooperativos do CEFET/RJ - Campus Nova Friburgo
+        </p>
+        <a href="#inicio" class="btn btn-ghost mt-6 !min-h-11 !text-base">
+          <ArrowUp size={18} aria-hidden="true" /> Voltar ao topo
+        </a>
+      </div>
+
+      <nav aria-label="Links úteis">
+        <h2 class="font-display text-lg font-bold uppercase tracking-wider text-ink">Links úteis</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {usefulLinks.map((l) => <li><a href={l.url} target="_blank" rel="noopener" class={linkClass}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="font-display text-lg font-bold uppercase tracking-wider text-ink">Contato</h2>
+        <p class="mt-4 text-sm text-ink-muted">CEFET/RJ - Campus Nova Friburgo<br />Nova Friburgo, Rio de Janeiro</p>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {site.authors.map((a) => <li><a href={a.url} target="_blank" rel="noopener" class={linkClass}>{a.name}</a></li>)}
+          <li><a href={site.repoUrl} target="_blank" rel="noopener" class={linkClass}>Código no GitHub</a></li>
+        </ul>
+      </div>
+
+      <nav aria-label="Referências">
+        <h2 class="font-display text-lg font-bold uppercase tracking-wider text-ink">Referências</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {references.map((r) => <li><a href={r.url} target="_blank" rel="noopener" class={linkClass}>{r.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-2 border-t border-asphalt-800 py-8 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; 2025–2026 Trânsito Seguro Nova Friburgo.</p>
+      <p>Desenvolvido pela Turma de Jogos Cooperativos - Lucas Lira &amp; Gregory Queiroz</p>
+    </div>
+  </div>
+</footer>

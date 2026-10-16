@@ -1,0 +1,188 @@
+---
+import { Image } from 'astro:assets';
+import RotateCcw from '@lucide/astro/icons/rotate-ccw';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Sign from '@/components/ui/Sign.astro';
+import placas from '@/assets/placas.jpg';
+import { signKinds, signs, signsIntro } from '@/data/signs';
+
+const kindSample = { regulamentacao: 'R-19', advertencia: 'A-14', indicacao: 'hospital' } as const;
+const kindLabel = { regulamentacao: 'Regulamentação', advertencia: 'Advertência', indicacao: 'Indicação' } as const;
+const filters = [{ value: 'todas', label: 'Todas' }, ...signKinds.map((k) => ({ value: k.kind, label: kindLabel[k.kind] }))];
+---
+
+<section id="placas" class="section-pad relative" aria-labelledby="placas-title">
+  <div class="container-site">
+    <SectionHeading id="placas-title" eyebrow="Leia a via" title="Sinalização de Trânsito" intro={signsIntro} />
+
+    <div class="grid gap-6 lg:grid-cols-5">
+      <figure class="card reveal overflow-hidden lg:col-span-2">
+        <Image
+          src={placas}
+          alt="Sinais de trânsito - Placas de regulamentação, advertência e indicação"
+          widths={[480, 800, 1280]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          class="aspect-[16/10] w-full object-cover"
+        />
+        <figcaption class="p-5 text-sm text-ink-muted">
+          Principais sinais de trânsito: placas de regulamentação, advertência e indicação
+        </figcaption>
+      </figure>
+
+      <ul class="grid gap-4 lg:col-span-3">
+        {
+          signKinds.map((kind) => (
+            <li class="card reveal flex gap-5 p-5 sm:p-6">
+              <Sign id={kindSample[kind.kind]} class="size-16 shrink-0 drop-shadow-[0_6px_14px_rgb(0_0_0/0.45)] sm:size-20" />
+              <div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <h3 class="font-display text-2xl font-bold uppercase text-ink">{kind.title}</h3>
+                  <span class="rounded-full border border-asphalt-600 px-2.5 py-0.5 text-xs font-medium text-ink-muted">{kind.shape}</span>
+                </div>
+                <p class="mt-2 text-ink-muted">{kind.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Galeria interativa -->
+    <div class="mt-20">
+      <div class="reveal flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h3 class="font-display text-4xl font-extrabold uppercase text-ink">Você conhece estas placas?</h3>
+          <p class="mt-2 flex items-center gap-2 text-ink-muted">
+            <RotateCcw size={18} aria-hidden="true" class="text-signal" />
+            Toque em uma placa para ver o que ela significa.
+          </p>
+        </div>
+        <div role="group" aria-label="Filtrar placas por tipo" class="sign-filters flex flex-wrap gap-2">
+          {
+            filters.map((f, i) => (
+              <button
+                type="button"
+                data-filter={f.value}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                class="min-h-11 rounded-full border border-asphalt-600 px-4 py-2 text-sm font-semibold text-ink-muted transition-colors hover:border-signal hover:text-ink aria-pressed:border-signal aria-pressed:bg-signal aria-pressed:text-asphalt-950"
+              >
+                {f.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5" data-sign-grid>
+        {
+          signs.map((sign) => (
+            <li data-kind={sign.kind} class="reveal">
+              <button type="button" class="flip group block aspect-[3/4] w-full text-left sm:aspect-[4/5]" aria-pressed="false">
+                <span class="flip-inner">
+                  <span class="flip-face flip-front card">
+                    <Sign id={sign.id} class="w-3/4 max-w-36 drop-shadow-[0_10px_18px_rgb(0_0_0/0.5)] transition-transform duration-300 group-hover:scale-105" />
+                    <span class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-ink-muted">
+                      {sign.code ?? kindLabel[sign.kind]}
+                    </span>
+                    <span class="sr-only">— {sign.name}.</span>
+                  </span>
+                  <span class="flip-face flip-back">
+                    <span class="font-display text-xs font-bold uppercase tracking-[0.2em] opacity-70">
+                      {sign.code ?? kindLabel[sign.kind]}
+                    </span>
+                    <span class="mt-1 block font-display text-xl font-extrabold uppercase leading-tight sm:text-2xl" aria-hidden="true">{sign.name}</span>
+                    <span class="mt-2 block text-[0.8rem] leading-snug sm:text-sm">{sign.meaning}</span>
+                  </span>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .flip {
+    perspective: 1000px;
+    border-radius: 1.25rem;
+  }
+
+  .flip-inner {
+    position: relative;
+    display: block;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.3, 0.9, 0.3, 1);
+  }
+
+  .flip[aria-pressed='true'] .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 1.25rem;
+  }
+
+  .flip-front {
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .flip:hover .flip-front {
+    border-color: color-mix(in oklab, var(--color-signal) 55%, transparent);
+  }
+
+  .flip-back {
+    justify-content: center;
+    padding: 0.85rem;
+    transform: rotateY(180deg);
+    background: var(--color-signal);
+    color: var(--color-asphalt-950);
+    overflow: auto;
+  }
+
+  [data-kind='regulamentacao'] .flip-back { background: #f4f4f1; border-top: 8px solid var(--color-stop); }
+  [data-kind='indicacao'] .flip-back { background: var(--color-route-deep); color: #fff; }
+
+  /* Sem JS: mostra frente e verso empilhados */
+  :global(html:not(.js)) .sign-filters { display: none; }
+  :global(html:not(.js)) .flip { aspect-ratio: auto; }
+  :global(html:not(.js)) .flip-face { position: static; backface-visibility: visible; transform: none; }
+  :global(html:not(.js)) .flip-front { min-height: 12rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flip-inner { transition: none; }
+  }
+</style>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-sign-grid]');
+  if (grid) {
+    grid.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.flip');
+      if (!button) return;
+      button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+    });
+
+    const filterButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    for (const button of filterButtons) {
+      button.addEventListener('click', () => {
+        const value = button.dataset.filter;
+        filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+        for (const item of grid.querySelectorAll<HTMLElement>('[data-kind]')) {
+          item.hidden = value !== 'todas' && item.dataset.kind !== value;
+        }
+      });
+    }
+  }
+</script>

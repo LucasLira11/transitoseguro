@@ -1,0 +1,47 @@
+---
+import Siren from '@lucide/astro/icons/siren';
+---
+
+<a
+  href="#emergencia"
+  id="emergency-fab"
+  data-visible="false"
+  class="fixed bottom-4 right-4 z-40 flex min-h-12 items-center gap-2 rounded-full bg-stop px-4 py-3 font-display text-lg font-bold uppercase tracking-wide text-white shadow-[0_10px_30px_rgb(229_50_45/0.45)] transition-[opacity,transform] duration-300 md:hidden"
+>
+  <Siren size={20} aria-hidden="true" />
+  Emergência
+</a>
+
+<style>
+  #emergency-fab[data-visible='false'] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Aparece depois do topo da página e some quando a seção de emergência já está na tela.
+  const fab = document.getElementById('emergency-fab');
+  const hero = document.getElementById('inicio');
+  const section = document.getElementById('emergencia');
+
+  if (fab && hero && section) {
+    let pastHero = false;
+    let atSection = false;
+    const update = () => {
+      const visible = pastHero && !atSection;
+      fab.dataset.visible = String(visible);
+      fab.tabIndex = visible ? 0 : -1;
+      fab.setAttribute('aria-hidden', String(!visible));
+    };
+    new IntersectionObserver(([entry]) => {
+      pastHero = !entry.isIntersecting;
+      update();
+    }).observe(hero);
+    new IntersectionObserver(([entry]) => {
+      atSection = entry.isIntersecting;
+      update();
+    }).observe(section);
+  }
+</script>

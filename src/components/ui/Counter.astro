@@ -1,0 +1,56 @@
+---
+interface Props {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  class?: string;
+}
+
+const { value, prefix = '', suffix = '', class: className } = Astro.props;
+const formatted = value.toLocaleString('pt-BR');
+---
+
+<span class:list={['tabular-nums', className]}>
+  {prefix}<span data-count={value}>{formatted}</span>{suffix}
+</span>
+
+<script>
+  // O HTML já traz o valor final (funciona sem JS e para leitores de tela).
+  // Com JS e movimento permitido, contadores fora da tela começam do zero
+  // e sobem quando aparecem.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = [...document.querySelectorAll<HTMLElement>('[data-count]')];
+  const fmt = new Intl.NumberFormat('pt-BR');
+
+  const animate = (el: HTMLElement) => {
+    const target = Number(el.dataset.count);
+    const duration = 1600;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(2, -10 * t);
+      el.textContent = fmt.format(Math.round(target * (t === 1 ? 1 : eased)));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          animate(entry.target as HTMLElement);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    for (const el of counters) {
+      if (el.getBoundingClientRect().top > window.innerHeight) {
+        el.textContent = '0';
+        observer.observe(el);
+      }
+    }
+  }
+</script>

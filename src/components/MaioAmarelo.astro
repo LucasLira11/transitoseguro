@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import Eye from '@lucide/astro/icons/eye';
+import laco from '@/assets/maio-amarelo-laco.avif';
+---
+
+<section class="section-pad relative overflow-hidden bg-signal text-asphalt-950" aria-labelledby="maio-title">
+  <div aria-hidden="true" class="hazard absolute inset-x-0 top-0 h-3 opacity-90"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute -right-24 top-1/2 hidden -translate-y-1/2 select-none font-display text-[22rem] font-extrabold uppercase leading-none text-asphalt-950/[0.06] lg:block">
+    Maio
+  </div>
+
+  <div class="container-site relative grid items-center gap-12 lg:grid-cols-2">
+    <div class="reveal mx-auto w-full max-w-md lg:order-2">
+      <div class="rotate-2 overflow-hidden rounded-[2rem] border-4 border-asphalt-950 bg-white shadow-[16px_16px_0_rgb(10_12_15)]">
+        <Image src={laco} alt="Maio Amarelo - Campanha de conscientização no trânsito" widths={[400, 740]} sizes="(min-width: 1024px) 28rem, 90vw" class="w-full" />
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="font-display text-base font-bold uppercase tracking-[0.2em] text-asphalt-950/70">Movimento internacional</p>
+      <h2 id="maio-title" class="mt-3 text-[clamp(3rem,8vw,6rem)] font-extrabold uppercase leading-[0.9]">Maio Amarelo</h2>
+      <p class="mt-6 text-lg">
+        O <strong>Maio Amarelo</strong> é um movimento internacional de conscientização para a redução de acidentes de trânsito. Durante todo o mês de maio, diversas ações são realizadas em Nova Friburgo e em todo o Brasil com o objetivo de estimular a reflexão coletiva e promover mudanças de comportamento que possam reduzir acidentes e salvar vidas.
+      </p>
+      <p class="mt-4 text-lg">
+        A campanha reforça a importância da responsabilidade compartilhada entre poder público, sociedade civil e cada cidadão para construir um trânsito mais seguro e humano.
+      </p>
+
+      <figure class="mt-8 rounded-2xl bg-asphalt-950 p-6 text-ink">
+        <p class="eyebrow flex items-center gap-2"><Eye size={18} aria-hidden="true" /> Tema de 2026</p>
+        <blockquote class="mt-3 font-display text-3xl font-extrabold uppercase leading-tight sm:text-4xl">
+          “No trânsito, enxergar o outro é salvar vidas”
+        </blockquote>
+        <figcaption class="mt-3 text-sm text-ink-muted">
+          A 13ª edição, definida pelo Observatório Nacional de Segurança Viária, tem foco em quem é mais vulnerável: motociclistas, ciclistas e pedestres.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

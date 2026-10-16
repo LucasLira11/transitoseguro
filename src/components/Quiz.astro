@@ -1,0 +1,253 @@
+---
+import ArrowLeft from '@lucide/astro/icons/arrow-left';
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import RotateCcw from '@lucide/astro/icons/rotate-ccw';
+import Trophy from '@lucide/astro/icons/trophy';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { QUIZ_ROUND_SIZE, quizBank } from '@/data/quiz';
+---
+
+<section id="quiz" class="section-pad relative border-t border-asphalt-800 bg-asphalt-900/40" aria-labelledby="quiz-title">
+  <div class="container-site">
+    <SectionHeading
+      id="quiz-title"
+      eyebrow="Teste seus conhecimentos"
+      title="Quiz do trânsito"
+      intro={`Responda às perguntas e descubra o quanto você sabe sobre segurança no trânsito! A cada rodada sorteamos ${QUIZ_ROUND_SIZE} perguntas de um banco com ${quizBank.length}.`}
+      align="center"
+    />
+
+    <div data-quiz class="card reveal mx-auto max-w-3xl p-5 sm:p-10">
+      <div data-quiz-play>
+        <div class="flex items-center justify-between gap-4 font-display text-lg font-semibold uppercase tracking-wider">
+          <span data-quiz-counter class="text-ink">Pergunta 1 de {QUIZ_ROUND_SIZE}</span>
+          <span data-quiz-score class="text-signal">0 acertos</span>
+        </div>
+        <div class="mt-3 h-2 overflow-hidden rounded-full bg-asphalt-700" aria-hidden="true">
+          <div data-quiz-progress class="h-full w-0 rounded-full bg-signal transition-[width] duration-500"></div>
+        </div>
+
+        <h3 id="quiz-question" data-quiz-question tabindex="-1" class="mt-8 font-sans text-2xl font-bold leading-snug text-ink sm:text-[1.7rem]"></h3>
+        <div data-quiz-options role="group" aria-labelledby="quiz-question" class="mt-6 grid gap-3"></div>
+
+        <div data-quiz-feedback aria-live="polite" class="min-h-0"></div>
+
+        <div class="mt-8 flex items-center justify-between gap-3">
+          <button type="button" data-quiz-prev aria-label="Pergunta anterior" class="btn btn-ghost !min-h-12 max-sm:!px-4 disabled:opacity-40 disabled:hover:translate-y-0">
+            <ArrowLeft size={20} aria-hidden="true" />
+            <span class="max-sm:hidden">Anterior</span>
+          </button>
+          <button type="button" data-quiz-next class="btn btn-primary !min-h-12 disabled:opacity-40 disabled:hover:translate-y-0">
+            <span data-quiz-next-label>Próxima</span>
+            <ArrowRight size={20} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      <div data-quiz-result hidden class="py-4 text-center">
+        <Trophy size={56} class="mx-auto text-signal" aria-hidden="true" />
+        <h3 data-quiz-result-title tabindex="-1" class="mt-4 font-display text-3xl font-bold uppercase text-ink">Resultado</h3>
+        <p class="mt-2 font-display text-[clamp(4rem,14vw,7rem)] font-extrabold leading-none text-signal">
+          <span data-quiz-final>0</span><span class="text-ink-muted">/{QUIZ_ROUND_SIZE}</span>
+        </p>
+        <p data-quiz-final-text class="sr-only"></p>
+        <p data-quiz-message class="mx-auto mt-4 max-w-md text-xl text-ink"></p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <button type="button" data-quiz-restart class="btn btn-primary">
+            <RotateCcw size={20} aria-hidden="true" />
+            Jogar de novo
+          </button>
+          <a href="#dicas" class="btn btn-ghost">Revisar as dicas</a>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <p class="card mx-auto max-w-3xl p-6 text-center text-ink-muted">Ative o JavaScript do navegador para jogar o quiz.</p>
+    </noscript>
+  </div>
+</section>
+
+<style>
+  :global(html:not(.js)) [data-quiz] { display: none; }
+
+  :global(.quiz-option) {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    min-height: 3.5rem;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--color-asphalt-600);
+    border-radius: 1rem;
+    background: var(--color-asphalt-800);
+    color: var(--color-ink);
+    text-align: left;
+    font-size: 1.05rem;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+  }
+
+  :global(.quiz-option:not(:disabled):hover) {
+    border-color: var(--color-signal);
+    transform: translateX(4px);
+  }
+
+  :global(.quiz-option:disabled) { cursor: default; }
+
+  :global(.quiz-letter) {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.6rem;
+    background: var(--color-asphalt-700);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+
+  :global(.quiz-option[data-state='correct']) {
+    border-color: var(--color-go);
+    background: color-mix(in oklab, var(--color-go) 16%, var(--color-asphalt-800));
+  }
+  :global(.quiz-option[data-state='correct'] .quiz-letter) { background: var(--color-go); color: var(--color-asphalt-950); }
+
+  :global(.quiz-option[data-state='wrong']) {
+    border-color: var(--color-stop);
+    background: color-mix(in oklab, var(--color-stop) 16%, var(--color-asphalt-800));
+  }
+  :global(.quiz-option[data-state='wrong'] .quiz-letter) { background: var(--color-stop); color: #fff; }
+
+  :global(.quiz-option[data-state='muted']) { opacity: 0.55; }
+</style>
+
+<script>
+  import { answerQuestion, createRound, getScore, isComplete, resultMessage, type Round } from '@/lib/quiz';
+  import { QUIZ_ROUND_SIZE, quizBank } from '@/data/quiz';
+
+  const root = document.querySelector<HTMLElement>('[data-quiz]');
+
+  if (root) {
+    const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const play = $('[data-quiz-play]');
+    const result = $('[data-quiz-result]');
+    const counter = $('[data-quiz-counter]');
+    const scoreEl = $('[data-quiz-score]');
+    const progress = $('[data-quiz-progress]');
+    const question = $('[data-quiz-question]');
+    const options = $('[data-quiz-options]');
+    const feedback = $('[data-quiz-feedback]');
+    const prev = $<HTMLButtonElement>('[data-quiz-prev]');
+    const next = $<HTMLButtonElement>('[data-quiz-next]');
+    const nextLabel = $('[data-quiz-next-label]');
+    const final = $('[data-quiz-final]');
+    const finalText = $('[data-quiz-final-text]');
+    const message = $('[data-quiz-message]');
+    const resultTitle = $('[data-quiz-result-title]');
+    const restart = $<HTMLButtonElement>('[data-quiz-restart]');
+
+    let round: Round = createRound(quizBank, QUIZ_ROUND_SIZE);
+    let current = 0;
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const plural = (n: number) => `${n} ${n === 1 ? 'acerto' : 'acertos'}`;
+
+    const render = (focusQuestion = false) => {
+      const total = round.questions.length;
+      const q = round.questions[current];
+      const answer = round.answers[current];
+      const answered = round.answers.filter((a) => a !== null).length;
+
+      counter.textContent = `Pergunta ${current + 1} de ${total}`;
+      scoreEl.textContent = plural(getScore(round));
+      progress.style.width = `${(answered / total) * 100}%`;
+      question.textContent = q.prompt;
+
+      options.replaceChildren(
+        ...q.options.map((text, i) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-option';
+          button.disabled = answer !== null;
+          if (answer !== null) {
+            button.dataset.state = i === q.correct ? 'correct' : i === answer ? 'wrong' : 'muted';
+          }
+          const letter = document.createElement('span');
+          letter.className = 'quiz-letter';
+          letter.setAttribute('aria-hidden', 'true');
+          letter.textContent = letters[i];
+          const label = document.createElement('span');
+          label.textContent = text;
+          button.append(letter, label);
+          button.addEventListener('click', () => choose(i));
+          return button;
+        }),
+      );
+
+      feedback.replaceChildren();
+      if (answer !== null) {
+        const right = answer === q.correct;
+        const box = document.createElement('div');
+        box.className = `mt-6 rounded-2xl border p-5 ${right ? 'border-go/50 bg-go/10' : 'border-stop/50 bg-stop/10'}`;
+        const title = document.createElement('p');
+        title.className = `font-display text-xl font-bold uppercase ${right ? 'text-go' : 'text-stop-light'}`;
+        title.textContent = right ? '✓ Correto! Muito bem!' : `✗ Incorreto. A resposta certa é a ${letters[q.correct]}.`;
+        const text = document.createElement('p');
+        text.className = 'mt-1 text-ink-muted';
+        text.textContent = q.explanation;
+        box.append(title, text);
+        feedback.append(box);
+      }
+
+      prev.disabled = current === 0;
+      next.disabled = answer === null;
+      nextLabel.textContent = current === total - 1 ? 'Ver resultado' : 'Próxima';
+
+      if (focusQuestion) question.focus();
+    };
+
+    const choose = (choice: number) => {
+      round = answerQuestion(round, current, choice);
+      render();
+      next.focus();
+    };
+
+    const showResult = () => {
+      const score = getScore(round);
+      const total = round.questions.length;
+      play.hidden = true;
+      result.hidden = false;
+      final.textContent = String(score);
+      finalText.textContent = `Você acertou ${score} de ${total} perguntas.`;
+      message.textContent = resultMessage(score, total);
+      resultTitle.focus();
+    };
+
+    prev.addEventListener('click', () => {
+      if (current > 0) {
+        current -= 1;
+        render(true);
+      }
+    });
+
+    next.addEventListener('click', () => {
+      if (round.answers[current] === null) return;
+      if (current < round.questions.length - 1) {
+        current += 1;
+        render(true);
+      } else if (isComplete(round)) {
+        showResult();
+      }
+    });
+
+    restart.addEventListener('click', () => {
+      round = createRound(quizBank, QUIZ_ROUND_SIZE);
+      current = 0;
+      result.hidden = true;
+      play.hidden = false;
+      render(true);
+    });
+
+    render();
+  }
+</script>

@@ -1,0 +1,32 @@
+---
+import { getImage } from 'astro:assets';
+import markSrc from '@/assets/logo-mark.png';
+
+interface Props {
+  class?: string;
+  compact?: boolean;
+}
+
+const { class: className = '', compact = false } = Astro.props;
+// Versão pequena do símbolo, usada como máscara CSS (aparece com ~44px).
+const mark = await getImage({ src: markSrc, width: 160, format: 'webp' });
+---
+
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+  <span
+    aria-hidden="true"
+    class="logo-mark block size-11 shrink-0 bg-signal"
+    style={`--logo-url: url(${mark.src})`}
+  ></span>
+  <span class:list={['flex flex-col leading-none', compact && 'max-sm:sr-only']}>
+    <span class="font-display text-[1.45rem] font-extrabold uppercase tracking-wide text-ink">Trânsito Seguro</span>
+    <span class="font-display text-[0.8rem] font-semibold uppercase tracking-[0.28em] text-route-light">CEFET/RJ · Nova Friburgo</span>
+  </span>
+</span>
+
+<style>
+  .logo-mark {
+    -webkit-mask: var(--logo-url) center / 135% no-repeat;
+    mask: var(--logo-url) center / 135% no-repeat;
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+/**
+ * Placas de trânsito desenhadas em SVG (simplificadas a partir do
+ * Manual Brasileiro de Sinalização de Trânsito).
+ */
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+
+const RED = '#d52b1e';
+const YELLOW = '#ffcc00';
+const BLACK = '#111111';
+const WHITE = '#ffffff';
+const BLUE = '#1b4a9c';
+
+const regulation = ['R-6a', 'R-6c', 'R-7', 'R-19', 'R-28'];
+const warning = ['A-1a', 'A-14', 'A-18', 'A-28', 'A-32b', 'A-33b'];
+---
+
+<svg viewBox="0 0 100 100" class={className} aria-hidden="true" focusable="false" font-family="'Barlow Condensed', sans-serif">
+  {
+    id === 'R-1' && (
+      <g>
+        <polygon points="68.4,5.7 94.4,31.6 94.4,68.4 68.4,94.4 31.6,94.4 5.7,68.4 5.7,31.6 31.6,5.7" fill={WHITE} />
+        <polygon points="66.8,9.4 90.6,33.2 90.6,66.8 66.8,90.6 33.2,90.6 9.4,66.8 9.4,33.2 33.2,9.4" fill={RED} />
+        <text x="50" y="59.5" text-anchor="middle" font-size="27" font-weight="800" fill={WHITE} letter-spacing="0.5">PARE</text>
+      </g>
+    )
+  }
+
+  {
+    id === 'R-2' && (
+      <polygon points="7,12 93,12 50,90" fill={WHITE} stroke={RED} stroke-width="10" stroke-linejoin="round" />
+    )
+  }
+
+  {
+    regulation.includes(id) && (
+      <g>
+        <circle cx="50" cy="50" r="44" fill={WHITE} stroke={RED} stroke-width="10" />
+
+        {(id === 'R-6a' || id === 'R-6c') && (
+          <g fill={BLACK}>
+            <rect x="37" y="27" width="8.5" height="46" />
+            <rect x="37" y="27" width="27" height="8.5" />
+            <rect x="37" y="45.75" width="22" height="8.5" />
+            <rect x="37" y="64.5" width="27" height="8.5" />
+          </g>
+        )}
+
+        {id === 'R-7' && (
+          <g fill={BLACK}>
+            <path d="M29.5 47 l3 -9 h9 l3 9 z" />
+            <rect x="27" y="46" width="20" height="13" rx="3" />
+            <rect x="28.5" y="58" width="5" height="6" rx="1.5" />
+            <rect x="40.5" y="58" width="5" height="6" rx="1.5" />
+            <path d="M55.5 47 l3 -9 h9 l3 9 z" />
+            <rect x="53" y="46" width="20" height="13" rx="3" />
+            <rect x="54.5" y="58" width="5" height="6" rx="1.5" />
+            <rect x="66.5" y="58" width="5" height="6" rx="1.5" />
+            <rect x="33" y="40.5" width="8" height="4.5" rx="1" fill={WHITE} />
+            <rect x="59" y="40.5" width="8" height="4.5" rx="1" fill={WHITE} />
+          </g>
+        )}
+
+        {id === 'R-19' && (
+          <g fill={BLACK} text-anchor="middle" font-weight="800">
+            <text x="50" y="58" font-size="40">40</text>
+            <text x="50" y="74" font-size="13" font-weight="700">km/h</text>
+          </g>
+        )}
+
+        {id === 'R-28' && (
+          <g fill={BLACK} stroke={BLACK}>
+            <line x1="40" y1="26" x2="40" y2="62" stroke-width="7" />
+            <polygon points="30,60 50,60 40,76" stroke="none" />
+            <line x1="60" y1="74" x2="60" y2="38" stroke-width="7" />
+            <polygon points="50,40 70,40 60,24" stroke="none" />
+          </g>
+        )}
+
+        {(id === 'R-6a' || id === 'R-6c' || id === 'R-7') && (
+          <line x1="22" y1="22" x2="78" y2="78" stroke={RED} stroke-width="7" />
+        )}
+        {id === 'R-6c' && <line x1="78" y1="22" x2="22" y2="78" stroke={RED} stroke-width="7" />}
+      </g>
+    )
+  }
+
+  {
+    warning.includes(id) && (
+      <g>
+        <polygon points="50,2 98,50 50,98 2,50" fill={YELLOW} stroke={BLACK} stroke-width="1.5" stroke-linejoin="round" />
+        <polygon points="50,8.5 91.5,50 50,91.5 8.5,50" fill="none" stroke={BLACK} stroke-width="3" stroke-linejoin="round" />
+
+        {id === 'A-1a' && (
+          <g fill="none" stroke={BLACK} stroke-width="7">
+            <path d="M58 74 V47 q0 -7 -7 -7 H42" />
+            <polygon points="29,40 43,30 43,50" fill={BLACK} stroke="none" />
+          </g>
+        )}
+
+        {id === 'A-14' && (
+          <g>
+            <rect x="40" y="25" width="20" height="50" rx="5" fill={BLACK} />
+            <circle cx="50" cy="35" r="5.5" fill="#e5322d" />
+            <circle cx="50" cy="50" r="5.5" fill={YELLOW} />
+            <circle cx="50" cy="65" r="5.5" fill="#2fbf71" />
+          </g>
+        )}
+
+        {id === 'A-18' && (
+          <g fill={BLACK}>
+            <path d="M33 61 Q50 36 67 61 Z" />
+            <rect x="24" y="60" width="52" height="6" rx="1" />
+          </g>
+        )}
+
+        {id === 'A-28' && (
+          <g fill={BLACK}>
+            <path d="M36 44 l4 -8 h20 l4 8 z" />
+            <rect x="32" y="43" width="36" height="11" rx="3" />
+            <rect x="34" y="53" width="7" height="5" rx="1.5" />
+            <rect x="59" y="53" width="7" height="5" rx="1.5" />
+            <path d="M33 65 c3 -6 7 6 10 0 s7 -6 10 0 s7 6 10 0" fill="none" stroke={BLACK} stroke-width="3" stroke-linecap="round" />
+            <path d="M38 74 c3 -6 7 6 10 0 s7 -6 10 0" fill="none" stroke={BLACK} stroke-width="3" stroke-linecap="round" />
+          </g>
+        )}
+
+        {id === 'A-32b' && (
+          <g>
+            <circle cx="52" cy="26" r="5" fill={BLACK} />
+            <g fill="none" stroke={BLACK} stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M51 33 L47 49" />
+              <path d="M47 49 L41 60" />
+              <path d="M47 49 L55 59" />
+              <path d="M50 37 L43 44" />
+              <path d="M50 37 L57 43" />
+            </g>
+            <g fill={BLACK}>
+              <rect x="30" y="66" width="6" height="7" />
+              <rect x="39" y="66" width="6" height="7" />
+              <rect x="48" y="66" width="6" height="7" />
+              <rect x="57" y="66" width="6" height="7" />
+              <rect x="66" y="66" width="4" height="7" />
+            </g>
+          </g>
+        )}
+
+        {id === 'A-33b' && (
+          <g>
+            <g fill={BLACK}>
+              <circle cx="42" cy="31" r="4.5" />
+              <circle cx="59" cy="35" r="4" />
+              <rect x="34" y="39" width="7" height="8" rx="1.5" />
+            </g>
+            <g fill="none" stroke={BLACK} stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M42 38 L40 51" />
+              <path d="M40 51 L35 61" />
+              <path d="M40 51 L46 60" />
+              <path d="M42 41 L48 47" />
+              <path d="M59 41 L57 52" />
+              <path d="M57 52 L53 61" />
+              <path d="M57 52 L62 60" />
+              <path d="M59 44 L64 49" />
+              <path d="M49 46 L54 44" />
+            </g>
+            <g fill={BLACK}>
+              <rect x="30" y="66" width="6" height="7" />
+              <rect x="39" y="66" width="6" height="7" />
+              <rect x="48" y="66" width="6" height="7" />
+              <rect x="57" y="66" width="6" height="7" />
+              <rect x="66" y="66" width="4" height="7" />
+            </g>
+          </g>
+        )}
+      </g>
+    )
+  }
+
+  {
+    id === 'hospital' && (
+      <g>
+        <rect x="5" y="5" width="90" height="90" rx="9" fill={BLUE} stroke={WHITE} stroke-width="3" />
+        <rect x="21" y="21" width="58" height="58" rx="5" fill={WHITE} />
+        <text x="50" y="71" text-anchor="middle" font-size="56" font-weight="800" fill={BLUE}>H</text>
+      </g>
+    )
+  }
+
+  {
+    id === 'destino' && (
+      <g>
+        <rect x="3" y="20" width="94" height="60" rx="6" fill={BLUE} />
+        <rect x="6.5" y="23.5" width="87" height="53" rx="4" fill="none" stroke={WHITE} stroke-width="2" />
+        <g fill={WHITE} font-weight="700" font-size="16">
+          <text x="14" y="45">CENTRO</text>
+          <text x="14" y="68">OLARIA</text>
+        </g>
+        <g fill={WHITE}>
+          <rect x="77" y="35" width="4" height="13" />
+          <polygon points="72,37 86,37 79,28" />
+          <rect x="68" y="61" width="13" height="4" />
+          <polygon points="79,56 79,70 88,63" />
+        </g>
+      </g>
+    )
+  }
+</svg>
